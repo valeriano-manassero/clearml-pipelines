@@ -1,5 +1,5 @@
-from clearml import Task
-from clearml.automation.controller import PipelineController
+from trains import Task
+from trains.automation.controller import PipelineController
 
 
 task = Task.init(project_name='iris', task_name='Model creation pipeline',
