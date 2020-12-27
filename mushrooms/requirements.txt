@@ -1,2 +1,4 @@
+pandas>=1.1.5
 PyJWT==1.7.1
+torch>=1.7.1
 trains>=0.16.4
