@@ -1,3 +1,4 @@
-boto3>=1.9
+boto3>=1.16.43
 kaggle>=1.5.10
+torch>=1.7.1
 trains>=0.16.4
