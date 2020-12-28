@@ -2,7 +2,7 @@ from trains import Task, StorageManager
 
 
 task = Task.init(project_name="mushrooms",
-                 task_name="pipeline step 1 dataset artifact",
+                 task_name="mushrooms step 1 dataset artifact",
                  task_type=Task.TaskTypes.data_processing)
 task.execute_remotely()
 

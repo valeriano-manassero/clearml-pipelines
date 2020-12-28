@@ -125,7 +125,7 @@ def test(model, device, criterion, test_loader, epoch):
     Logger.current_logger().report_scalar("test", "accuracy", iteration=epoch, value=(acc / len(test_loader.dataset)))
 
 
-task = Task.init(project_name="mushrooms", task_name="pipeline step 2 train model")
+task = Task.init(project_name="mushrooms", task_name="mushrooms step 2 train model")
 args = {
     'stage_data_task_id': 'REPLACE_WITH_DATASET_TASK_ID',
 }
