@@ -9,7 +9,6 @@ args = {
     "worker_queue": "default",
 }
 task.connect(args)
-task.execute_remotely()
 
 pipe = PipelineController(default_execution_queue="default",
                           add_pipeline_tags=False)
