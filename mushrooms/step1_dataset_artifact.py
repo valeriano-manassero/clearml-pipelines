@@ -1,4 +1,4 @@
-from trains import Task, StorageManager
+from clearml import Task, StorageManager
 
 
 task = Task.init(project_name="mushrooms",

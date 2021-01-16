@@ -17,11 +17,11 @@ Further pipelines are welcome via pull request.
 Here some prerequisites needed to deploy this repo.
 
 ### Platform versions
-* Allegro Trains >=1.6.4
+* Allegro ClearML >=0.17.4
 * PyTorch >=1.7.1
 
 ### Kubernetes cluster
-Kubernetes installation can be done using official ClearML chart at https://github.com/allegroai/trains-server-helm#deploying-trains-server
+Kubernetes installation can be done using ClearML chart at https://artifacthub.io/packages/helm/valeriano-manassero/clearml
 
 A (hopefully) good alternative is the usage of GitOps paradigm with declaration of the entire cluster at https://github.com/valeriano-manassero/mlops-k8s-infra
 
