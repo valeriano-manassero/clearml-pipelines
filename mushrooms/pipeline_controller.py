@@ -1,5 +1,5 @@
-from trains import Task
-from trains.automation.controller import PipelineController
+from clearml import Task
+from clearml.automation.controller import PipelineController
 
 
 task = Task.init(project_name='mushrooms', task_name='Model creation mushrooms',
@@ -9,6 +9,7 @@ args = {
     'worker_queue': 'default',
 }
 task.connect(args)
+task.execute_remotely()
 
 pipe = PipelineController(default_execution_queue='default',
                           add_pipeline_tags=False)

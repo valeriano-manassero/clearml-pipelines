@@ -1,6 +1,6 @@
 import os
 import shutil
-from trains import Task
+from clearml import Task
 import tarfile
 
 

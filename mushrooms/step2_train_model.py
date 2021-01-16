@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader, random_split
-from trains import Task, Logger
+from clearml import Task, Logger
 
 
 class MushRoomsDataset(Dataset):
