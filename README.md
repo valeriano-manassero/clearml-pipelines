@@ -1,4 +1,4 @@
-# Machine Learning pipelines
+# ClearML pipelines
 Pipelines built on top of Allegro ClearML.
 
 ## General info
