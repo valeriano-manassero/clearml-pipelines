@@ -10,7 +10,10 @@ args = {
     'dataset_s3_path': 's3://minio-hl.minio:9000/clearml/data'
 }
 task.connect(args)
+logger = task.get_logger()
 task.execute_remotely()
+
+logger.report_text(args["dataset_s3_path"])
 
 pipe = PipelineController(default_execution_queue='default',
                           add_pipeline_tags=False)
@@ -21,7 +24,7 @@ pipe.add_step(name='stage_data',
               parameter_override={'General/dataset_s3_path': args["dataset_s3_path"]},
               execution_queue=args["worker_queue"])
 
-print ('${stage_data}')
+logger.report_text('${stage_data}')
 
 #pipe.add_step(name='stage_train',
 #              parents=['stage_data', ],
@@ -34,4 +37,4 @@ pipe.start()
 pipe.wait()
 pipe.stop()
 
-print ('${stage_data}')
+logger.report_text('${stage_data}')
