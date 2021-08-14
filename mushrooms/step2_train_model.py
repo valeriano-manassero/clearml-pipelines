@@ -3,13 +3,15 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader, random_split
-from clearml import Task, Logger
+import glob
+from clearml import Task, Logger, Dataset as ClearMLDataset
 
 
 class MushRoomsDataset(Dataset):
 
-    def __init__(self, csv_file):
-        df = pd.read_csv(csv_file)
+    def __init__(self, csv_folder):
+        csv_files = glob.glob("%s/*.csv" % csv_folder)
+        df = pd.concat(map(pd.read_csv, csv_files), ignore_index=True)
 
         self.categorical = [
             "cap_shape",
@@ -127,12 +129,13 @@ def test(model, device, criterion, test_loader, epoch):
 
 task = Task.init(project_name="mushrooms", task_name="mushrooms step 2 train model")
 args = {
-    'stage_data_task_id': 'REPLACE_WITH_DATASET_TASK_ID',
+    "dataset_name": "mushrooms_dataset"
 }
 task.connect(args)
-task.execute_remotely()
-dataset_task = Task.get_task(task_id=args["stage_data_task_id"])
-dataset = MushRoomsDataset(dataset_task.artifacts["dataset"].get())
+#task.execute_remotely()
+
+ds_reference = ClearMLDataset.get(dataset_name=args["dataset_name"], dataset_project="mushrooms", dataset_tags=["latest"])
+dataset = MushRoomsDataset(ds_reference.get_local_copy())
 trainsize = int(0.8 * len(dataset))
 testsize = len(dataset) - trainsize
 trainset, testset = random_split(dataset, [trainsize, testsize])
