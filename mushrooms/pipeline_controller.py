@@ -18,7 +18,7 @@ pipe = PipelineController(default_execution_queue='default',
 pipe.add_step(name='stage_data',
               base_task_project='mushrooms',
               base_task_name='mushrooms step 1 dataset artifact',
-              parameter_override={'Args/dataset_s3_path': args["dataset_s3_path"]},
+              parameter_override={'General/dataset_s3_path': args["dataset_s3_path"]},
               execution_queue=args["worker_queue"])
 
 print ('${stage_data}')
