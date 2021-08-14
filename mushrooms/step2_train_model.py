@@ -129,12 +129,11 @@ def test(model, device, criterion, test_loader, epoch):
 
 task = Task.init(project_name="mushrooms", task_name="mushrooms step 2 train model")
 args = {
-    "dataset_name": "mushrooms_dataset"
 }
 task.connect(args)
 task.execute_remotely()
 
-ds_reference = ClearMLDataset.get(dataset_name=args["dataset_name"], dataset_project="mushrooms", dataset_tags=["latest"])
+ds_reference = ClearMLDataset.get(dataset_name="mushrooms_dataset_folder", dataset_project="mushrooms", dataset_tags=["latest"])
 dataset = MushRoomsDataset(ds_reference.get_local_copy())
 trainsize = int(0.8 * len(dataset))
 testsize = len(dataset) - trainsize
