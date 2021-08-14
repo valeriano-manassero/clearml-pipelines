@@ -5,8 +5,8 @@ task = Task.init(project_name="mushrooms",
                  task_name="mushrooms step 1 dataset artifact",
                  task_type=Task.TaskTypes.data_processing)
 args = {
-    "dataset_name": "mushrooms_dataset",
-    "dataset_s3_path": "s3://localhost:9000/clearml/data"
+    "dataset_name": "DATASET_NAME",
+    "dataset_s3_path": "DATASET_S3_PATH"
 }
 task.connect(args)
 logger = task.get_logger()

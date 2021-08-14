@@ -7,7 +7,8 @@ task = Task.init(project_name='mushrooms', task_name='Model creation mushrooms',
                  reuse_last_task_id=False)
 args = {
     'worker_queue': 'default',
-    'dataset_s3_path': 's3://minio-hl.minio:9000/clearml/data'
+    'dataset_s3_path': 's3://minio-hl.minio:9000/clearml/data',
+    "dataset_name": "mushrooms_dataset",
 }
 task.connect(args)
 logger = task.get_logger()
@@ -21,20 +22,21 @@ pipe = PipelineController(default_execution_queue='default',
 pipe.add_step(name='stage_data',
               base_task_project='mushrooms',
               base_task_name='mushrooms step 1 dataset artifact',
-              parameter_override={'General/dataset_s3_path': args["dataset_s3_path"]},
+              parameter_override={
+                  "General/dataset_s3_path": "s3://minio-hl.minio:9000/clearml/data",
+                  "General/dataset_name": "mushrooms_dataset"
+                  },
               execution_queue=args["worker_queue"])
 
-logger.report_text('${stage_data}')
-
-#pipe.add_step(name='stage_train',
-#              parents=['stage_data', ],
-#              base_task_project='mushrooms',
-#              base_task_name='mushrooms step 2 train model',
-#              parameter_override={'General/dataset_name': '${stage_data.id}'},
-#              execution_queue=args["worker_queue"])
+pipe.add_step(name='stage_train',
+              parents=['stage_data', ],
+              base_task_project='mushrooms',
+              base_task_name='mushrooms step 2 train model',
+              parameter_override={
+                  "General/dataset_name": args["dataset_name"]
+                  },
+              execution_queue=args["worker_queue"])
 
 pipe.start()
 pipe.wait()
 pipe.stop()
-
-logger.report_text('${stage_data}')
