@@ -132,7 +132,7 @@ args = {
     "dataset_name": "mushrooms_dataset"
 }
 task.connect(args)
-#task.execute_remotely()
+task.execute_remotely()
 
 ds_reference = ClearMLDataset.get(dataset_name=args["dataset_name"], dataset_project="mushrooms", dataset_tags=["latest"])
 dataset = MushRoomsDataset(ds_reference.get_local_copy())
