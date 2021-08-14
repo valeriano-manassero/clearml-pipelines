@@ -13,7 +13,7 @@ task.connect(args)
 logger = task.get_logger()
 task.execute_remotely()
 
-logger.report_text()
+logger.report_text("Starting pipeline")
 
 pipe = PipelineController(default_execution_queue='default',
                           add_pipeline_tags=False)
