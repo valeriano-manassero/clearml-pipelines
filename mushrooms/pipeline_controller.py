@@ -7,7 +7,7 @@ task = Task.init(project_name='mushrooms', task_name='Model creation mushrooms',
                  reuse_last_task_id=False)
 args = {
     'worker_queue': 'default',
-    'dataset_s3_path': 's3://minio-hl.minio/clearml/data'
+    'dataset_s3_path': 's3://minio-hl.minio:9000/clearml/data'
 }
 task.connect(args)
 task.execute_remotely()
@@ -18,7 +18,7 @@ pipe = PipelineController(default_execution_queue='default',
 pipe.add_step(name='stage_data',
               base_task_project='mushrooms',
               base_task_name='mushrooms step 1 dataset artifact',
-              parameter_override={'General/dataset_s3_path': args["dataset_s3_path"]},
+              parameter_override={'Args/dataset_s3_path': args["dataset_s3_path"]},
               execution_queue=args["worker_queue"])
 
 print ('${stage_data}')
@@ -33,3 +33,5 @@ print ('${stage_data}')
 pipe.start()
 pipe.wait()
 pipe.stop()
+
+print ('${stage_data}')
