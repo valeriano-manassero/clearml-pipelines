@@ -1,13 +1,25 @@
-from clearml import Task, StorageManager
+from clearml import Task, StorageManager, Dataset
 
 
 task = Task.init(project_name="mushrooms",
                  task_name="mushrooms step 1 dataset artifact",
                  task_type=Task.TaskTypes.data_processing)
+args = {
+    "dataset_name": "mushrooms_dataset",
+    "dataset_s3_path": "s3://localhost:9000/clearml/data"
+}
+task.connect(args)
+logger = task.get_logger()
 task.execute_remotely()
 
+logger.report_text("Downloading mushrooms dataset")
 local_mushrooms_dataset = StorageManager.get_local_copy(
     remote_url="https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/mushrooms.csv")
-task.upload_artifact("dataset", artifact_object=local_mushrooms_dataset)
 
-print('uploading csv dataset in the background')
+ds = Dataset.create(dataset_name=args["dataset_name"], use_current_task=True)
+ds.add_files(local_mushrooms_dataset, recursive=True)
+logger.report_text("S3 upload -> mushrooms dataset")
+ds.upload(output_url=args["dataset_s3_path"])
+ds.finalize()
+ds.tags = []
+ds.tags = ['latest']
