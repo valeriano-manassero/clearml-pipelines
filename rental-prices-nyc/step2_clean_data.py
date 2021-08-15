@@ -15,7 +15,7 @@ task.execute_remotely()
 logger.report_text("Downloading AirBnb NYC 2019 dataset dataset")
 
 
-ds = Dataset.get(dataset_name="airbnb-nyc-2019", dataset_project="Rental Prices NYC", dataset_tags=["latest"])
+ds = Dataset.get(dataset_name="airbnb-nyc-2019-raw", dataset_project="Rental Prices NYC", dataset_tags=["latest"])
 csv_files = glob.glob("%s/*.csv" % ds.get_local_copy())
 dataframe = pd.concat(map(pd.read_csv, csv_files), ignore_index=True)
 
@@ -32,7 +32,7 @@ dataframe = dataframe[idx].copy()
 
 dataframe.to_csv("datset.csv", index=False)
 
-ds = Dataset.create(dataset_name="airbnb-nyc-2019-cleaned", parent_datasets=["airbnb-nyc-2019"], use_current_task=True)
+ds = Dataset.create(dataset_name="airbnb-nyc-2019-cleaned", parent_datasets=["airbnb-nyc-2019-raw"], use_current_task=True)
 ds.add_files("dataset.csv")
 logger.report_text("S3 upload -> dataset")
 ds.upload()
