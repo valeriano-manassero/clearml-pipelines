@@ -26,4 +26,4 @@ ds.tags = ['latest']
 
 df = pd.read_csv(dataset)
 fig = px.histogram(df, x="price")
-logger.report_plotly(title="Price distribution", iteration=0, figure=fig)
+logger.report_plotly(title="Price distribution", series="price", iteration=0, figure=fig)
