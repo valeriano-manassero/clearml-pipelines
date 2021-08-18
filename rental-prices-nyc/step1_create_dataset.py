@@ -24,7 +24,7 @@ ds.finalize()
 ds.tags = []
 ds.tags = ['latest']
 
-df = pd.read_csv()
+df = pd.read_csv(dataset)
 profile = ProfileReport(df, title="Pandas Profiling Report", explorative=True)
 profile.to_widgets()
 profile.to_file("report.html")
