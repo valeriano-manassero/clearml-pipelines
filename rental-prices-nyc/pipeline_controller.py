@@ -1,3 +1,4 @@
+from hashlib import scrypt
 from clearml import Task
 from clearml.automation.controller import PipelineController
 
@@ -24,9 +25,11 @@ pc = PipelineController(default_execution_queue=args["worker_queue"],
                           add_pipeline_tags=False)
 
 project_name = "Rental Prices NYC"
+
 pc.add_step(name='create_dataset',
             base_task_project=project_name,
             base_task_name="Step 1 create dataset",
+            task_override={'output.destination': '${pc.output.destination}'},
             execution_queue=args["worker_queue"])
 pc.add_step(name='clean_data',
             parents=['create_dataset', ],
