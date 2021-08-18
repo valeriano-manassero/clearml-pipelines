@@ -1,4 +1,6 @@
 from clearml import Task, StorageManager, Dataset
+import pandas as pd
+from pandas_profiling import ProfileReport
 
 
 task = Task.init(project_name="Rental Prices NYC",
@@ -21,3 +23,9 @@ ds.upload()
 ds.finalize()
 ds.tags = []
 ds.tags = ['latest']
+
+df = pd.read_csv()
+profile = ProfileReport(df, title="Pandas Profiling Report", explorative=True)
+profile.to_widgets()
+profile.to_file("report.html")
+logger.current_logger().report_media("html", "Pandas Prifilng report", local_path="report.html")
