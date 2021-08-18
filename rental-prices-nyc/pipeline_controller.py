@@ -3,7 +3,7 @@ from clearml.automation.controller import PipelineController
 
 
 task = Task.init(project_name="Rental Prices NYC",
-                 task_name="Step 2 clean data",
+                 task_name="Pipeline controller",
                  task_type=Task.TaskTypes.controller
                  )
 
