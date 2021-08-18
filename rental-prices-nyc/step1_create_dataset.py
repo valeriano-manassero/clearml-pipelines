@@ -1,6 +1,6 @@
 from clearml import Task, StorageManager, Dataset
 import pandas as pd
-from pandas_profiling import ProfileReport
+import plotly.express as px
 
 
 task = Task.init(project_name="Rental Prices NYC",
@@ -25,7 +25,5 @@ ds.tags = []
 ds.tags = ['latest']
 
 df = pd.read_csv(dataset)
-profile = ProfileReport(df, title="Pandas Profiling Report", explorative=True)
-profile.to_widgets()
-profile.to_file("report.html")
-logger.current_logger().report_media("html", "Pandas Prifilng report", local_path="report.html")
+fig = px.histogram(df, x="price")
+logger.report_plotly(title="Price distribution", iteration=0, figure=fig)
