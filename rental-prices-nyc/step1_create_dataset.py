@@ -15,12 +15,12 @@ logger = task.get_logger()
 task.execute_remotely()
 
 try:
-    logger.report_text("Dataset %s already exists, creating the child one" % args["datset_name"])
-    original_ds = Dataset.get(dataset_name=args["datset_name"], dataset_project=args["dataset_project"], dataset_tags=["latest"])
-    ds = Dataset.create(dataset_name=args["datset_name"], parent_datasets=[original_ds.id], dataset_project=args["dataset_project"])
+    logger.report_text("Dataset %s already exists, creating the child one" % args["dataset_name"])
+    original_ds = Dataset.get(dataset_name=args["dataset_name"], dataset_project=args["dataset_project"], dataset_tags=["latest"])
+    ds = Dataset.create(dataset_name=args["dataset_name"], parent_datasets=[original_ds.id], dataset_project=args["dataset_project"])
 except ValueError:
-    logger.report_text("Dataset %s does not exists, creating the first one" % args["datset_name"])
-    ds = Dataset.create(dataset_name=args["datset_name"], dataset_project=args["dataset_project"])
+    logger.report_text("Dataset %s does not exists, creating the first one" % args["dataset_name"])
+    ds = Dataset.create(dataset_name=args["dataset_name"], dataset_project=args["dataset_project"])
 
 logger.report_text("Downloading AirBnb NYC 2019 dataset")
 dataset_csv = StorageManager.get_local_copy(
