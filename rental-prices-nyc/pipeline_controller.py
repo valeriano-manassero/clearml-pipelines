@@ -19,22 +19,29 @@ args = {
 
 task.connect(args)
 logger = task.get_logger()
-task.execute_remotely()
+#task.execute_remotely()
 
 pc = PipelineController(default_execution_queue=args["worker_queue"],
                           add_pipeline_tags=False)
+
 
 project_name = "Rental Prices NYC"
 
 pc.add_step(name='create_dataset',
             base_task_project=project_name,
             base_task_name="Step 1 create dataset",
-            task_overrides={"output.destination": "${pc.output.destination}"},
             execution_queue=args["worker_queue"])
 pc.add_step(name='clean_data',
             parents=['create_dataset', ],
             base_task_project=project_name,
             base_task_name="Step 2 clean data",
+            parameter_override={"General/min_price": 10, "General/max_price": 350},
+            execution_queue=args["worker_queue"])
+pc.add_step(name='check_data',
+            parents=['clean_dataset', ],
+            base_task_project=project_name,
+            base_task_name="Step 3 check data",
+            parameter_override={"General/min_price": 10, "General/max_price": 350},
             execution_queue=args["worker_queue"])
 
 logger.report_text("Pipeline started")
