@@ -57,7 +57,7 @@ logger.report_text("Test column names: neighbourhood group in dataset: %s",
                    set(neigh))
 assert set(known_names) == set(neigh)
 
-idx = df['longitude'].between(-74.25, - 73.50) & data['latitude'].between(40.5, 41.2)
+idx = df['longitude'].between(-74.25, - 73.50) & df['latitude'].between(40.5, 41.2)
 logger.report_text("Test proper boundaries: unexpected items are %s", np.sum(~idx))
 assert np.sum(~idx) == 0
 
