@@ -35,6 +35,7 @@ pc.add_step(name='clean_data',
             parents=['create_dataset', ],
             base_task_project=project_name,
             base_task_name="Step 2 clean data",
+            task_overrides={'output_dest':"s3://bucket/folder"},
             parameter_override={"General/min_price": 10, "General/max_price": 350},
             execution_queue=args["worker_queue"])
 pc.add_step(name='check_data',
