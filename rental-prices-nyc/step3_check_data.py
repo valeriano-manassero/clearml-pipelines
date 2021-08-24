@@ -68,4 +68,4 @@ items_ok = df['price'].between(args["min_price"], args["max_price"]).shape[0]
 logger.report_text("Price range test, items in range are: %s", items_ok)
 assert df.shape[0] == items_ok
 
-logger.report_table("Dataset", table_plot=df)
+logger.report_table("Dataset", "Pandas dataframe", table_plot=df)
