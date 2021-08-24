@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import glob
 import plotly.express as px
+from pandas_profiling import ProfileReport
 
 
 task = Task.init(project_name="Rental Prices NYC",
@@ -69,3 +70,7 @@ logger.report_text("Price range test, items in range are: %s", items_ok)
 assert df.shape[0] == items_ok
 
 logger.report_table("Dataset", "Pandas dataframe", table_plot=df)
+
+profile = ProfileReport(df)
+profile.to_file("pp-output.html")
+logger.report_media("html", "pandasprofiling", local_path="pp-output.html")
