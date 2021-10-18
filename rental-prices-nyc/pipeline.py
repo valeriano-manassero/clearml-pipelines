@@ -48,7 +48,7 @@ def clean_data(project_name: str, dataset_id: str, dataset_name_cleaned: str, mi
     import glob
     import plotly.express as px
 
-    #bug workarounf in clearml pipelines
+    #bug workaround in clearml pipelines
     min_price = int(min_price)
     max_price = int(max_price)
 
@@ -103,7 +103,7 @@ def check_data(dataset_id: str, min_price: int, max_price: int) -> str:
     import glob
     from pandas_profiling import ProfileReport
 
-    #bug workarounf in clearml pipelines
+    #bug workaround in clearml pipelines
     min_price = int(min_price)
     max_price = int(max_price)
 
@@ -187,7 +187,7 @@ def train_model(dataset_id: str):
 
 
 @PipelineDecorator.pipeline(name="Airbnb nyc model pipeline", project="examples", version="0.0.1")
-def executing_pipeline(project_name: str, dataset_name_raw: str, dataset_name_cleaned: str, min_price: int=10, max_price: int=350):
+def executing_pipeline(project_name: str, dataset_name_raw: str, dataset_name_cleaned: str, min_price: int=10, max_price: int=350, mock_parameter: str='mock'):
     raw_dataset_id = create_dataset(project_name, dataset_name_raw)
     cleaned_dataset_id = clean_data(project_name, raw_dataset_id, dataset_name_cleaned, min_price, max_price)
     checked_dataset_id = check_data(cleaned_dataset_id, min_price, max_price)
