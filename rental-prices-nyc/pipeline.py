@@ -171,14 +171,18 @@ def train_model(dataset_id: str):
     ds = Dataset.get(dataset_id=dataset_id, dataset_tags=["latest"])
     csv_files = glob.glob("%s/*.csv" % ds.get_local_copy())
     df = pd.concat(map(pd.read_csv, csv_files), ignore_index=True)
-
+    
     skf = StratifiedKFold(n_splits=5)
     target = df.loc[:,"neighbourhood_group"]
+
+    logger = Logger.current_logger()
+    logger.report_text("Start training")
+
     fold_no = 1
     for train_index, test_index in skf.split(df, target):
         train = df.loc[train_index,:]
         test = df.loc[test_index,:]
-        Logger.current_logger().report_text("Fold: {} Class ratio: {}".format(str(fold_no), sum(test["Returned_Units"])/len(test["Returned_Units"])))
+        logger.report_text("Fold: {} Class ratio: {}".format(fold_no, sum(test["Returned_Units"])/len(test["Returned_Units"])))
         fold_no += 1
 
 
@@ -192,7 +196,7 @@ def executing_pipeline(project_name: str, dataset_name_raw: str, dataset_name_cl
 
 if __name__ == "__main__":
     PipelineDecorator.set_default_execution_queue("default")
-    PipelineDecorator.debug_pipeline()
+    # PipelineDecorator.debug_pipeline()
 
     executing_pipeline(
         project_name="examples",
