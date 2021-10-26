@@ -32,7 +32,7 @@ train_images = train_images / 255.0
 test_images = test_images / 255.0
 
 #create ML model using tensorflow provided ResNet50 model, note the [32, 32, 3] shape because that's the shape of cifar
-model = tf.keras.applications.ResNet50(
+model = tf.keras.applications.ResNet152V2(
     include_top=True, weights=None, input_tensor=None,
     input_shape=(32, 32, 3), pooling=None, classes=10
 )
@@ -50,7 +50,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 #train ML model
-model.fit(train_images,  train_labels, epochs=10)
+model.fit(train_images,  train_labels, epochs=30)
 
 #evaluate ML model on test set
 test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
