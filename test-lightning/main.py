@@ -66,5 +66,5 @@ if __name__ == '__main__':
 
     # training
     #trainer = pl.Trainer(gpus=4, num_nodes=8, precision=16, limit_train_batches=0.5)
-    trainer = pl.Trainer(gpus=1, precision=16, limit_train_batches=0.5)
+    trainer = pl.Trainer(gpus=1, auto_scale_batch_size=True)
     trainer.fit(model, train_loader, val_loader)
