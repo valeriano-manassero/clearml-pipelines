@@ -58,8 +58,8 @@ if __name__ == '__main__':
     dataset = MNIST('', train=True, download=True, transform=transforms.ToTensor())
     mnist_train, mnist_val = random_split(dataset, [55000, 5000])
 
-    train_loader = DataLoader(mnist_train, batch_size=32)
-    val_loader = DataLoader(mnist_val, batch_size=32)
+    train_loader = DataLoader(mnist_train, batch_size=128)
+    val_loader = DataLoader(mnist_val, batch_size=128)
 
     # model
     model = LitAutoEncoder()
